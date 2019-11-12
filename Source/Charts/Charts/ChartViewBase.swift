@@ -36,6 +36,9 @@ public protocol ChartViewDelegate
     // Callbacks when the chart is scaled / zoomed via pinch zoom gesture.
     @objc optional func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat)
     
+    /// Called when a user stops scale on the chart
+    @objc optional func chartViewDidEndScale(_ chartView: ChartViewBase)
+    
     // Callbacks when the chart is moved / translated via drag gesture.
     @objc optional func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat)
 
