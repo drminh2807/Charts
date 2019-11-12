@@ -622,7 +622,10 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             if _isScaling
             {
                 _isScaling = false
-                
+                if delegate !== nil
+                {
+                    delegate?.chartDidEndScale?(self)
+                }
                 // Range might have changed, which means that Y-axis labels could have changed in size, affecting Y-axis size. So we need to recalculate offsets.
                 calculateOffsets()
                 setNeedsDisplay()
