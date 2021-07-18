@@ -126,7 +126,14 @@
     else
     {
         set1 = [[BarChartDataSet alloc] initWithEntries:yVals label:@"Statistics Vienna 2014"];
-        
+        set1.drawValueAboveBar = NO;
+        set1.alignXValueCenter = NO;
+        set1.drawIconsEnabled = NO;
+        set1.valueAlignment = NSTextAlignmentRight;
+        set1.xValueOffset = -5.0;
+        set1.alignYValueCenter = YES;
+        set1.yValueOffset = 50.0;
+        set1.valueTextColor = [UIColor redColor];
         set1.drawIconsEnabled = NO;
         
         set1.colors = @[ChartColorTemplates.material[0], ChartColorTemplates.material[1], ChartColorTemplates.material[2]];

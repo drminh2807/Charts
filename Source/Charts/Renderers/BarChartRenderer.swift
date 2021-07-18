@@ -509,7 +509,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                                     ? (rect.origin.y + posOffset)
                                     : (rect.origin.y + rect.size.height + negOffset),
                                 font: valueFont,
-                                align: .center,
+                                align: dataSet.valueAlignment,
                                 color: dataSet.valueTextColorAt(j),
                                 anchor: CGPoint(x: 0.5, y: 0.5),
                                 angleRadians: angleRadians)
@@ -547,7 +547,11 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                         
                         let rect = buffer[bufferIndex]
                         
-                        let x = rect.origin.x + rect.size.width / 2.0
+                        var x = rect.origin.x + dataSet.xValueOffset
+                        
+                        if dataSet.alignXValueCenter {
+                            x += rect.size.width / 2.0
+                        }
                         
                         // we still draw stacked bars, but there is one non-stacked in between
                         if let values = vals
@@ -583,11 +587,16 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
 
                             trans.pointValuesToPixel(&transformed)
 
-                            for (value, transformed) in zip(values, transformed)
+                            for (k ,(value, transformed)) in zip(values, transformed).enumerated()
                             {
                                 let drawBelow = (value == 0.0 && negY == 0.0 && posY > 0.0) || value < 0.0
-                                let y = transformed.y + (drawBelow ? negOffset : posOffset)
-
+                                var y = transformed.y + (drawBelow ? negOffset : posOffset) + dataSet.yValueOffset
+                                
+                                if dataSet.alignYValueCenter {
+                                    let rectPerBar = buffer[bufferIndex + k]
+                                    y = (rectPerBar.midY + dataSet.yValueOffset) - valueTextHeight
+                                }
+                                
                                 guard viewPortHandler.isInBoundsRight(x) else { break }
                                 guard viewPortHandler.isInBoundsY(y),
                                     viewPortHandler.isInBoundsLeft(x)
@@ -595,6 +604,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
 
                                 if dataSet.isDrawValuesEnabled
                                 {
+                                    let colorIndex = dataSet.isUsingCustomColorPerValue ? k : index
                                     drawValue(
                                         context: context,
                                         value: formatter.stringForValue(
@@ -605,8 +615,8 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                                         xPos: x,
                                         yPos: y,
                                         font: valueFont,
-                                        align: .center,
-                                        color: dataSet.valueTextColorAt(index),
+                                        align: dataSet.valueAlignment,
+                                        color: dataSet.valueTextColorAt(colorIndex),
                                         anchor: CGPoint(x: 0.5, y: 0.5),
                                         angleRadians: angleRadians)
                                 }

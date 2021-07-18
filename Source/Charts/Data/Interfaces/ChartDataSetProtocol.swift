@@ -267,4 +267,37 @@ public protocol ChartDataSetProtocol
     
     /// `true` if this DataSet is visible inside the chart, or `false` ifit is currently hidden.
     var isVisible: Bool { get }
+
+    /// Set to true if you want to use custom colors per value label -- use valueColors
+    var useCustomColorPerValue: Bool { get set }
+    
+    /// - returns: `true` if this data set is using valueColors multiple values.
+    var isUsingCustomColorPerValue: Bool { get }
+    
+    /// Set each data set to draw unique label positions
+    var drawValueAboveBar: Bool { get set }
+    
+    /// - returns: `true` if this data set values drawValueAboveBar is true
+    var isDrawValueAboveBar: Bool { get }
+    
+    /// X offset for bar value labels. Default is 0
+    var xValueOffset: CGFloat { get set }
+    
+    /// Y offset for bar value labels. Default is 0
+    var yValueOffset: CGFloat { get set }
+    
+    /// Text alignment for bar value labels. Default is Center
+    var valueAlignment: NSTextAlignment { get set }
+    
+    /// If set to yes, the X value will be divided to the bar's width. Default is YES
+    var alignXValueCenter: Bool { get set }
+    
+    /// -returns: `true` if values needs to be centered.
+    var isAlignXValueCenter: Bool { get }
+    
+    /// If set to yes, the Y value will be divided to the bar's width. Default is YES
+    var alignYValueCenter: Bool { get set }
+    
+    /// -returns: `true` if values needs to be centered.
+    var isAlignYValueCenter: Bool { get }
 }

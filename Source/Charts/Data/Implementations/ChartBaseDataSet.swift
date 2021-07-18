@@ -370,6 +370,49 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol, NSCopying
     {
         return visible
     }
+
+    /// Set to true if you want to use custom colors per value label -- use valueColors
+    open var useCustomColorPerValue = false
+    
+    /// - returns: `true` if this data set is using valueColors multiple values.
+    open var isUsingCustomColorPerValue: Bool
+    {
+        return useCustomColorPerValue
+    }
+    
+    /// Set each data set to draw unique label positions
+    open var drawValueAboveBar = false
+    
+    /// - returns: `true` if this data set values drawValueAboveBar is true
+    open var isDrawValueAboveBar: Bool
+    {
+        return drawValueAboveBar
+    }
+    
+    /// X offset for bar value labels. Default is 0
+    open var xValueOffset: CGFloat = 0.0
+    
+    /// Y offset for bar value labels. Default is 0
+    open var yValueOffset: CGFloat = 0.0
+    
+    /// Text alignment for bar value labels. Default is Center
+    open var valueAlignment: NSTextAlignment = .center
+    
+    /// If set to yes, the X value will be divided to the bar's width. Default is YES
+    open var alignXValueCenter: Bool = true
+    
+    /// -returns: `true` if values needs to be centered.
+    open var isAlignXValueCenter: Bool {
+        return alignXValueCenter
+    }
+    
+    /// If set to yes, the Y value will be divided to the bar's width. Default is YES
+    open var alignYValueCenter: Bool = true
+    
+    /// -returns: `true` if values needs to be centered.
+    open var isAlignYValueCenter: Bool {
+        return alignYValueCenter
+    }
     
     // MARK: - NSObject
     
