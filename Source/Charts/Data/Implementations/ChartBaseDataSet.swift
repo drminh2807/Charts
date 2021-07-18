@@ -396,7 +396,7 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol, NSCopying
     open var yValueOffset: CGFloat = 0.0
     
     /// Text alignment for bar value labels. Default is Center
-    open var valueAlignment: NSTextAlignment = .center
+    open var valueAlignment: TextAlignment = .center
     
     /// If set to yes, the X value will be divided to the bar's width. Default is YES
     open var alignXValueCenter: Bool = true

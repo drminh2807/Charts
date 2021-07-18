@@ -287,7 +287,7 @@ public protocol ChartDataSetProtocol
     var yValueOffset: CGFloat { get set }
     
     /// Text alignment for bar value labels. Default is Center
-    var valueAlignment: NSTextAlignment { get set }
+    var valueAlignment: TextAlignment { get set }
     
     /// If set to yes, the X value will be divided to the bar's width. Default is YES
     var alignXValueCenter: Bool { get set }
