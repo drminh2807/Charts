@@ -254,7 +254,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
         }
     }
 
-    open override func drawData(context: CGContext)
+    open func drawData(context: CGContext, andHaveData: [Bool]?)
     {
         guard
             let dataProvider = dataProvider,
@@ -282,7 +282,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
 
             guard set.isVisible else { continue }
 
-            drawDataSet(context: context, dataSet: set, index: i)
+            drawDataSet(context: context, dataSet: set, index: i, haveData: andHaveData?[i] ?? false)
         }
 
         // Merge nested ordered arrays into the single accessibleChartElements.
@@ -292,7 +292,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
 
     private var _barShadowRectBuffer: CGRect = CGRect()
     
-    @objc open func drawDataSet(context: CGContext, dataSet: BarChartDataSetProtocol, index: Int)
+    @objc open func drawDataSet(context: CGContext, dataSet: BarChartDataSetProtocol, index: Int, haveData: Bool)
     {
         guard let dataProvider = dataProvider else { return }
 
@@ -403,6 +403,16 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
 
                 accessibilityOrderedElements[j/stackSize].append(element)
             }
+        }
+        
+        if haveData {
+            let barRect = buffer.last!
+            context.move(to: CGPoint(x: barRect.maxX, y: barRect.minY + barRect.size.width/2))
+            context.addLine(to: CGPoint(x: barRect.maxX, y: barRect.minY))
+            context.addLine(to: CGPoint(x: (barRect.maxX - barRect.size.width/2), y: barRect.minY))
+            context.closePath()
+            context.setFillColor(red: 71.0/255.0, green: 171.0/255.0, blue: 233.0/255.0, alpha: 1.0)
+            context.fillPath()
         }
     }
     

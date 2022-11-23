@@ -60,6 +60,12 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     /// Sets the minimum offset (padding) around the chart, defaults to 10
     @objc open var minOffset = CGFloat(10.0)
     
+    @objc open var haveMemoArray : [Bool]!
+    
+    @objc open var typeMemoArray : [Int]!
+    
+    @objc open var stepIdArray: [Int]!
+    
     /// Sets whether the chart should keep its position (zoom / scroll) after a rotation (orientation change)
     /// **default**: false
     @objc open var keepPositionOnRotation: Bool = false
@@ -234,8 +240,9 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         if clipDataToContentEnabled {
             context.clip(to: viewPortHandler.contentRect)
         }
-
-        renderer.drawData(context: context, andHaveData: self.haveMemoArray)
+        if let renderer = renderer as? BarChartRenderer {
+            renderer.drawData(context: context, andHaveData: self.haveMemoArray)
+        }
         
         // The renderers are responsible for clipping, to account for line-width center etc.
         if !xAxis.drawGridLinesBehindDataEnabled

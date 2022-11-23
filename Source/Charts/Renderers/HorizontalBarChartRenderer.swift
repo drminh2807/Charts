@@ -179,7 +179,7 @@ open class HorizontalBarChartRenderer: BarChartRenderer
     
     private var _barShadowRectBuffer: CGRect = CGRect()
     
-    open override func drawDataSet(context: CGContext, dataSet: BarChartDataSetProtocol, index: Int)
+    open override func drawDataSet(context: CGContext, dataSet: BarChartDataSetProtocol, index: Int, haveData: Bool)
     {
         guard let dataProvider = dataProvider else { return }
         
